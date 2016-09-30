@@ -1,0 +1,28 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hello
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      run: hello
+  template:
+    metadata:
+      labels:
+        run: hello
+    spec:
+      containers:
+      - name: hello
+        image: quay.io/tobstarr/hello:v3
+        env:
+        - name: MESSAGE
+          value: Hello Code Talks 2016!
+        readinessProbe:
+          httpGet:
+            path: /_status
+            port: 8080
+        livenessProbe:
+          httpGet:
+            path: /_status
+            port: 8080

@@ -1,0 +1,30 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: redis
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: redis
+  template:
+    metadata:
+      labels:
+        run: redis
+    spec:
+      volumes:
+      - name: config
+        configMap:
+          name: redis-v1
+      - name: data
+        gcePersistentDisk:
+          pdName: redis
+      containers:
+      - name: redis
+        image: redis:3.0.6
+        command: ["/usr/local/bin/redis-server", "/etc/redis/redis.conf"]
+        volumeMounts:
+        - name: config
+          mountPath: /etc/redis
+        - name: data
+          mountPath: /data

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    run: now
+    version: "1"
+  name: now-v1
+spec:
+  ports:
+  - port: 80
+    targetPort: 8080
+    protocol: TCP
+    nodePort: 30005
+  type: NodePort
+  selector:
+    run: now
+    version: "1"

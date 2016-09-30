@@ -1,0 +1,10 @@
+kind: Pod
+apiVersion: v1
+metadata:
+  name: hello
+  labels:
+    run: hello
+spec:
+  containers:
+  - name: hello
+    image: quay.io/tobstarr/hello:v1

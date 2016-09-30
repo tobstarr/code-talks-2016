@@ -1,0 +1,22 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: now-v2
+  labels:
+    app: now
+    version: "2"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: now
+      version: "2"
+  template:
+    metadata:
+      labels:
+        run: now
+        version: "2"
+    spec:
+      containers:
+      - name: now
+        image: quay.io/tobstarr/now:b7878af2
