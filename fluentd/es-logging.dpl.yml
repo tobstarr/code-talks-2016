@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    k8s-app: elasticsearch-logging
+  name: elasticsearch-logging
+  namespace: kube-system
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      k8s-app: elasticsearch-logging
+  template:
+    metadata:
+      labels:
+        k8s-app: elasticsearch-logging
+    spec:
+      containers:
+      - name: elasticsearch
+        image: elasticsearch:2.3.5
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 9200
+        readinessProbe:
+          httpGet:
+            path: /
+            port: 9200
+            scheme: HTTP
